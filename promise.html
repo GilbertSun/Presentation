@@ -33,15 +33,52 @@
                 </section>
                 <section>
                     <h2>什么是 Promise</h2>
-                    <p class="fragment">Promise 是 ECMAScript 2015标准规范出来的一个新的 api <br/> 通常挂载到全局环境中，通过 Promise 访问到</p>
+                    <p class="fragment">Promise 是 ECMAScript 2015标准规范出来的一个新的 api <br/> 通常挂载到Global中，通过 Promise 访问到</p>
                 </section>
                 <section>
                     <h2>JavaScript Promise 的历史</h2>
                     <ul>
                         <li>最初 Promise 叫做 Futures，属于 DOM 规范的一部分</li>
                         <li>出现过多种 Promise 规范，现在列入标准的是 Promises/A+</li>
-                        <li>标准出现后，出现了非常多的实现，有的不是遵照标准的，但是标准出现后，都在向标准靠拢</li>
+                        <li>标准出现之前，出现了非常多的实现，有的不是遵照标准的，但是标准出现后，都在向标准靠拢</li>
                     </ul>
+                </section>
+                <section>
+                    <section><h2>Promise API</h2></section>
+                    <section>
+                        <h3>静态方法</h3>
+                        <ul>
+                            <li>Promise.resolve(promise);</li>
+                            <li>Promise.resolve(thenable);</li>
+                            <li>Promise.resolve(obj);</li>
+                            <li>Promise.reject(obj);</li>
+                            <li>Promise.all(array);</li>
+                            <li>Promise.race(array);</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>构造器</h3>
+
+                        <div>
+                            <pre><code>
+new Promise(function(resolve, reject) {});
+                            </code></pre>
+                        </div>
+
+                        <ul>
+                            <li>resolve(thenable)<br/>你的 Promise 将会根据这个 “thenable” 对象的结果而返回肯定/否定结果</li>
+                            <li>resolve(obj)<br/>你的 Promise 将会以 obj 作为肯定结果完成</li>
+                            <li>reject(obj)<br/>你的 Promise 将会以 obj 作为否定结果完成。出于一致性和调试（如栈追踪）方便，obj 应该是一个 Error 对象的实例。构造器的回调函数中抛出的错误会被立即传递给 reject()。</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>实例方法</h3>
+
+                        <ul>
+                            <li>promise.then(onFulfilled, onRejected)<br/>当 promise 以肯定结束时会调用 onFulfilled。 当 promise 以否定结束时会调用 onRejected。 这两个参数都是可选的，当任意一个未定义时，对它的调用会跳转到 then 链的下一个 onFulfilled/onRejected 上。 这两个回调函数均只接受一个参数，肯定结果或者否定原因。 当 Promise.resolve 肯定结束之后，then 会返回一个新的 Promise，这个 Promise 相当于你从 onFulfilled/onRejected 中返回的值。如果回调中抛出任何错误，返回的 Promise 也会以此错误作为否定结果结束。</li>
+                            <li>promise.catch(onRejected)<br/>promise.then(undefined, onRejected) 的语法糖。<br/>非常感谢 Anne van Kesteren，Domenic Denicola，Tom Ashworth，Remy Sharp，Addy Osmani，Arthur Evans 以及 and Yutaka Hirano 对本文做出的贡献（审阅/纠错或建议）。</li>
+                        </ul>
+                    </section>
                 </section>
             </div>
         </div>
