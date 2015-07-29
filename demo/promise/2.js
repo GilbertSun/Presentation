@@ -1,4 +1,4 @@
-function get (url) {
+var get = function (url) {
     // 返回一个新的 Promise
     return new Promise(function(resolve, reject) {
         // 经典 XHR 操作
@@ -27,10 +27,25 @@ function get (url) {
         // 发出请求
         req.send();
     });
-}
+};
 
-get('story.json').then(function (response) {
-    console.log("Success!", response);
-}, function (error) {
-    console.error("Failed!", error);
-});
+var getJSON = function (url) {
+    return get(url).then(JSON.parse);
+};
+
+var getChapter = (function () {
+    var storyPromise;
+    return function (i) {
+        storyPromise = storyPromise || getJSON('story.json');
+        return storyPromise.then(function (story) {
+            return getJSON(story.chapterUrls[i]);
+        });
+    };
+}());
+
+getJSON('story.json')
+    .then(function (story) {
+        return getJSON(story.chapterUrls[0]);
+    }).then(function (chapter1) {
+        console.log("Got chapter 1!", chapter1);
+    });
