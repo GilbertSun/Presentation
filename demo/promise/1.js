@@ -13,3 +13,12 @@ setTimeout(function () {
         console.log(result);
     });
 }, 2000);
+
+
+Promise.reject('aaa').then(function () {
+    console.log('resolve');
+}).catch(function (res) {
+    console.log(res);
+}).then(function (res) {
+    console.log(res);
+});
